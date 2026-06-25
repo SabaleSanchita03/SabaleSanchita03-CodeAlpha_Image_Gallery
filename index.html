@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAlpha Image Gallery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Hide scrollbars for the filter button track on mobile devices */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 min-h-screen p-4 md:p-8 transition-colors duration-300">
+
+    <button onclick="toggleDarkMode()"
+        class="fixed top-4 left-4 w-12 h-12 flex items-center justify-center bg-white/70 dark:bg-slate-800/70 border border-white/40 dark:border-slate-700/40 backdrop-blur-md text-xl rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 z-50"
+        aria-label="Toggle Dark Mode">
+        🌙
+    </button>
+
+    <header class="text-center py-10 max-w-2xl mx-auto">
+        <h1
+            class="text-3xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">
+            Interactive Image Gallery
+        </h1>
+    </header>
+
+    <nav
+        class="flex justify-start sm:justify-center items-center gap-3 mb-10 overflow-x-auto pb-2 px-4 -mx-4 sm:mx-0 no-scrollbar">
+
+        <button onclick="filterImages('all')"
+            class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium bg-blue-600 text-white shadow-md shadow-blue-600/20 hover:scale-105 active:scale-95 transition-all duration-300 whitespace-nowrap">
+            All
+        </button>
+
+        <button onclick="filterImages('nature')"
+            class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-slate-800 border border-white/40 dark:border-slate-700/40 text-slate-700 dark:text-slate-200 shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 whitespace-nowrap">
+            Nature
+        </button>
+
+        <button onclick="filterImages('travel')"
+            class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-slate-800 border border-white/40 dark:border-slate-700/40 text-slate-700 dark:text-slate-200 shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 whitespace-nowrap">
+            Travel
+        </button>
+
+        <button onclick="filterImages('animals')"
+            class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-slate-800 border border-white/40 dark:border-slate-700/40 text-slate-700 dark:text-slate-200 shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 whitespace-nowrap">
+            Animals
+        </button>
+
+        <button onclick="showFavorites()"
+            class="px-6 py-2 rounded-full bg-white text-sm font-medium bg-white shadow hover:scale-105 transition">
+            Favorites ❤️
+        </button>
+
+    </nav>
+
+    <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-2">
+
+        <div
+            class="image nature group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/nature1.avif" alt="Nature landscape"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image nature group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/nature2.avif" alt="Nature landscape"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image nature group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/nature3.avif" alt="Nature landscape"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image travel group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/travel1.avif" alt="Travel scenery"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image travel group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/travel2.avif" alt="Travel scenery"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image travel group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/travel3.avif" alt="Travel scenery"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image animals group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/animal1.avif" alt="Animal wildlife"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image animals group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/animal2.avif" alt="Animal wildlife"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+        <div
+            class="image animals group overflow-hidden rounded-2xl border border-white/40 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+            <img src="images/animal3.webp" alt="Animal wildlife"
+                class="w-full h-64 object-cover cursor-pointer group-hover:scale-[1.03] transition-transform duration-500">
+        </div>
+
+    </main>
+
+    <div
+        class="lightbox fixed inset-0 bg-slate-950/95 backdrop-blur-md hidden items-center justify-center z-50 transition-all duration-300">
+
+        <button
+            class="close absolute top-5 right-5 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 w-12 h-12 flex items-center justify-center rounded-full text-3xl transition-all duration-300 hover:rotate-90 z-10"
+            aria-label="Close lightbox">
+            &times;
+        </button>
+
+        <div class="absolute top-5 left-5 flex gap-3 z-10">
+
+            <button onclick="downloadImage()"
+                class="bg-white/10 hover:bg-white/20 active:scale-90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md backdrop-blur-sm transition-all duration-300"
+                title="Download Image">
+                <span class="text-lg">⬇️</span>
+            </button>
+
+            <button onclick="shareImage()"
+                class="bg-white/10 hover:bg-white/20 active:scale-90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md backdrop-blur-sm transition-all duration-300"
+                title="Share Image">
+                <span class="text-lg">📤</span>
+            </button>
+
+            <button onclick="toggleFavorite()" id="favBtn"
+                class="bg-white/10 hover:bg-white/20 active:scale-90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-md backdrop-blur-sm transition-all duration-300"
+                title="Favorite Image">
+                <span class="text-lg">🤍</span>
+            </button>
+
+            <!-- DELETE BUTTON -->
+            <button onclick="deleteImage()" class="bg-red-500 hover:bg-red-600 text-white w-12 h-12 rounded-full">
+                ❌
+            </button>
+
+        </div>
+
+        <button id="prev"
+            class="absolute left-4 md:left-8 bottom-8 md:bottom-auto text-white/70 hover:text-white bg-white/10 hover:bg-white/20 w-14 h-14 flex items-center justify-center rounded-full text-2xl transition-all duration-300 hover:scale-110 active:scale-90"
+            aria-label="Previous Image">
+            ❮
+        </button>
+
+        <div
+            class="max-w-[88%] max-h-[72vh] md:max-h-[82vh] overflow-hidden rounded-2xl shadow-2xl border border-white/10 bg-slate-900/40">
+            <img class="lightbox-img w-full h-full object-contain mx-auto transition-transform duration-300">
+        </div>
+
+        <button id="next"
+            class="absolute right-4 md:right-8 bottom-8 md:bottom-auto text-white/70 hover:text-white bg-white/10 hover:bg-white/20 w-14 h-14 flex items-center justify-center rounded-full text-2xl transition-all duration-300 hover:scale-110 active:scale-90"
+            aria-label="Next Image">
+            ❯
+        </button>
+
+    </div>
+
+    <!-- Upload Button -->
+    <button onclick="document.getElementById('uploadInput').click()"
+        class="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white text-2xl rounded-full shadow-lg flex items-center justify-center z-50">
+        +
+    </button>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="uploadInput" accept="image/*" class="hidden">
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+/* ===== Google Font ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ===== Reset ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f6f9;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ===== Header ===== */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #222;
+}
+
+header p {
+    color: #666;
+    margin-top: 8px;
+}
+
+/* ===== Filter Buttons ===== */
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border: none;
+    background: #222;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.buttons button:hover {
+    transform: translateY(-3px);
+    background: #444;
+}
+
+/* ===== Gallery ===== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.image {
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    background: white;
+}
+
+.image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.image:hover img {
+    transform: scale(1.1);
+}
+
+/* ===== Lightbox ===== */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox-img {
+    max-width: 80%;
+    max-height: 80vh;
+    border-radius: 10px;
+}
+
+/* ===== Close Button ===== */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover {
+    transform: rotate(90deg);
+}
+
+/* ===== Navigation Buttons ===== */
+.nav-btn {
+    position: absolute;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 25px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+#prev {
+    left: 30px;
+}
+
+#next {
+    right: 30px;
+}
+
+/* ===== Responsive Design ===== */
+
+@media (max-width: 768px) {
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lightbox-img {
+        max-width: 90%;
+    }
+
+    #prev {
+        left: 10px;
+    }
+
+    #next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+
+    .nav-btn {
+        padding: 10px 15px;
+        font-size: 20px;
+    }
+
+    .close {
+        font-size: 35px;
+    }
+}
+
+@layer utilities {
+  /* ===== Lightbox Toggle State ===== */
+  /* When the JavaScript removes the 'hidden' class, this flex layout takes over smoothly */
+  .lightbox.flex {
+    display: flex;
+    animation: fadeIn 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .lightbox.flex .lightbox-img {
+    animation: scaleUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* ===== Smooth Custom Scrolling Track ===== */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+/* ===== Interactive Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== Filter Button Active State Hint ===== */
+/* If your JS toggles an '.active' class on filter buttons, this keeps styles sleek */
+.buttons button.active, 
+nav button.active {
+  background-color: #2563eb !important; /* Forces active blue theme */
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.uploaded {
+    position: relative;
+}
+
+.uploaded::after {
+    content: "NEW";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #3b82f6;
+    color: white;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+
+.image {
+    position: relative;
+}
+
+.image:hover::after {
+    content: "🗑️ Click image to delete via lightbox";
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
