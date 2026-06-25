@@ -19,7 +19,7 @@ This is a responsive Image Gallery web application built using:
 - Keyboard controls
 
 ## 📸 Live Demo
-(Add GitHub Pages link here after deployment)
+(https://sabalesanchita03.github.io/SabaleSanchita03-CodeAlpha_Image_Gallery/)
 
 ## 📂 Project Structure
 - index.html
@@ -33,4 +33,4 @@ This project was built as part of frontend development internship practice to im
 
 ---
 
-## 👨‍💻       
+## 👨‍💻      
